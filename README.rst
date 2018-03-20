@@ -1,8 +1,11 @@
 .. highlight:: rst
 
-========
-velarium
-========
+.. |license| image:: http://img.shields.io/:license-MIT-red.svg
+   :target: LICENSE.txt
+
+==================
+velarium |license|
+==================
 
 A simple line-oriented command interpreter for connecting to VPN providers.
 
