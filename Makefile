@@ -2,12 +2,8 @@ define cleanup
 	sudo rm -rf build dist *.egg-info
 endef
 
-virtual:
-	virtualenv venv
-	source venv/bin/activate
-
 init:
-	pip install -r requirements.txt
+	pip --user install -r requirements.txt
 
 test: init
 	nosetests --verbosity=2 --with-coverage --cover-package=velarium tests

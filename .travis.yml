@@ -3,7 +3,9 @@ python:
   - "2.7"
 # command to install dependencies
 install:
-  - make virtual
+  - make init
 # command to run tests
 script:
   - make test
+virtualenv:
+    system_site_packages: true
