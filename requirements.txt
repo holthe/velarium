@@ -1,7 +1,7 @@
 appdirs
 pick
 cmd2
-requests
+requests[security]
 setuptools
 tqdm
 python_dateutil
@@ -9,4 +9,5 @@ python_dateutil
 # Testing
 coverage
 nose
-mock
+mock==2.0.0
+six==1.10.0
