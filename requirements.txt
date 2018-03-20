@@ -1,0 +1,12 @@
+appdirs
+pick
+cmd2
+requests
+setuptools
+tqdm
+python_dateutil
+
+# Testing
+coverage
+nose
+mock

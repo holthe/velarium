@@ -1,0 +1,18 @@
+# general things to ignore
+build/
+dist/
+*.egg-info/
+*.egg
+*.py[cod]
+__pycache__/
+*.so
+*~
+
+# virtual env
+venv/
+
+# due to PyCharm
+.idea/
+
+# testing
+.coverage
