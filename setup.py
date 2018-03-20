@@ -29,7 +29,4 @@ setup(
             'unfirewall=velarium:ufw_reset'  # Expose functionality to reset UFW rules
         ],
     },
-    install_requires=['six>=1.7'],
-    setup_requires=['pbr>=1.3'],
-    pbr=True
 )

@@ -3,7 +3,7 @@ python:
   - "2.7"
 # command to install dependencies
 install:
-  - make init 
+  - make virtual
 # command to run tests
 script:
   - make test
