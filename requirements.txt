@@ -1,7 +1,7 @@
 appdirs
 pick
 cmd2
-requests
+requests[security]
 setuptools
 tqdm
 python_dateutil
