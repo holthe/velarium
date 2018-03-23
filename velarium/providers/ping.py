@@ -48,8 +48,8 @@ class PingSweeper(object):
         while True:
             # Get a host item form queue and ping it
             host = queue.get()
-            args = ['/bin/ping', '-c', '3', '-W', '1', str(host)]
-            p_ping = subprocess.Popen(args, stdout=subprocess.PIPE)
+            cmd = '/bin/ping -c 3 -W 1 {0}'.format(str(host))
+            p_ping = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
 
             # Save ping stdout
             p_ping_out = p_ping.communicate()[0]
