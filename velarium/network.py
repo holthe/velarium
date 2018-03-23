@@ -13,19 +13,19 @@ import process
 
 def ufw_set():
     """Set UFW rules to only allow incoming and outgoing traffic on interface tun0."""
-    return process.try_call_multiple(['ufw --force reset',
-                                      'ufw default deny incoming',
-                                      'ufw default deny outgoing',
-                                      'ufw allow out on tun0 from any to any',
-                                      'ufw enable'])
+    return process.try_call_multiple(['ufw', '--force', 'reset'],
+                                     ['ufw', 'default', 'deny', 'incoming'],
+                                     ['ufw', 'default', 'deny', 'outgoing'],
+                                     ['ufw', 'allow', 'out', 'on', 'tun0', 'from', 'any', 'to', 'any'],
+                                     ['ufw', 'enable'])
 
 
 def ufw_reset():
     """Reset UFW rules."""
-    return process.try_call_multiple(['ufw --force reset',
-                                      'ufw default deny incoming',
-                                      'ufw default allow outgoing',
-                                      'ufw enable'])
+    return process.try_call_multiple(['ufw', '--force', 'reset'],
+                                     ['ufw', 'default', 'deny', 'incoming'],
+                                     ['ufw', 'default', 'allow', 'outgoing'],
+                                     ['ufw', 'enable'])
 
 
 @contextmanager

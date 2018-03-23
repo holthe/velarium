@@ -15,7 +15,7 @@ def try_call(command, quiet=False):
     try:
         print('Calling {0}'.format(command))
         f_null = open(os.devnull, 'w') if quiet else None
-        return subprocess.check_call(shlex.split(command),
+        return subprocess.check_call(command,
                                      stdout=f_null,
                                      stderr=f_null,
                                      close_fds=True) == 0
@@ -23,7 +23,7 @@ def try_call(command, quiet=False):
         return False
 
 
-def try_call_multiple(commands):
+def try_call_multiple(*commands):
     """Try to call a list of commands stopping at the first error."""
     for command in commands:
         if not try_call(command):
@@ -77,15 +77,12 @@ def drop_privileges():
     os.setgid(pwnam.pw_gid)
     os.setuid(pwnam.pw_uid)
 
-    # Ensure a reasonable umask
-    old_umask = os.umask(0o22)
-
 
 def kill(process_name):
     """Kill process(es) with name process_name."""
-    if not try_call('pgrep {0}'.format(process_name), quiet=True):
+    if not try_call(['pgrep', process_name], quiet=True):
         print('No {0} instance to kill...'.format(process_name))
         return True
     else:
         print('Killing {0} instance(s)...'.format(process_name))
-        return try_call('pkill {0}'.format(process_name), quiet=True)
+        return try_call(['pkill', process_name], quiet=True)

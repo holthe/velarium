@@ -1,13 +1,12 @@
 import datetime
 import ntpath
 import os
+import readline
 import subprocess
 import time
 
-import appdirs
 import cmd2
 import pick
-import readline
 from dateutil import parser
 
 import color
@@ -55,7 +54,7 @@ class Interpreter(cmd2.Cmd):
                 self.do_select()
 
             provider_config_files = []
-            for root, folders, files in os.walk(self.provider.config_dir):
+            for root, _, files in os.walk(self.provider.config_dir):
                 for config in files:
                     if config.endswith('.ovpn'):
                         provider_config_files.append(os.path.join(root, config))
@@ -246,7 +245,7 @@ class Interpreter(cmd2.Cmd):
 def run():
     global ASCII_LOGO
 
-    subprocess.call('clear')
+    subprocess.call(['/usr/bin/clear'])
 
     ASCII_LOGO = utils.get_ascii_logo()
     if ASCII_LOGO:

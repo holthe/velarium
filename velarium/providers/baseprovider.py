@@ -120,7 +120,7 @@ class BaseProvider(object):
     def _find_file_with_ext(self, ext):
         """Find first file with the given extension."""
         match = None
-        for root, folders, files in os.walk(self.config_dir):
+        for root, _, files in os.walk(self.config_dir):
             match = next((f for f in files if f.endswith(ext)), None)
             if match:
                 match = os.path.join(root, match)
