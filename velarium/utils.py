@@ -24,7 +24,7 @@ def get_resource(resource_name):
 
 def get_ascii_logo():
     """Get the ascii logo."""
-    _, columns = subprocess.check_output(['stty', 'size']).split()
+    _, columns = subprocess.check_output(['/bin/stty', 'size']).split()
     with get_resource('ascii_logo') as ascii_logo:
         if len(max(ascii_logo, key=len)) <= int(columns):
             # We need to seek back, because the file has already been read
