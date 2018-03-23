@@ -1,7 +1,6 @@
 import fcntl
 import os
 import pwd
-import shlex
 import subprocess
 import sys
 
@@ -42,7 +41,7 @@ def relaunch_with_sudo(force=False, interactive=False):
         # process, so there's no need to exit afterwards. The extra 'sudo' in the
         # second parameter is required because Python doesn't automatically set $0
         # in the new process.
-        os.execvp('sudo', ['sudo'] + sys.argv)
+        os.execvp('/usr/bin/sudo', ['/usr/bin/sudo'] + sys.argv)
 
 
 def ensure_single_instance(process_name):
