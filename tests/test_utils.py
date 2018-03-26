@@ -39,6 +39,8 @@ class UtilsTestSuite(unittest.TestCase):
         self._test_query_yes_no('no', False)
 
     def _test_query_yes_no(self, input_value, expected_output):
-        with patch('__builtin__.raw_input', return_value=input_value) as _raw_input:
+        input_to_patch = 'velarium.utils.input'
+
+        with patch(input_to_patch, return_value=input_value) as _input:
             self.assertEqual(velarium.utils.query_yes_no('Are you OK?'), expected_output)
-            _raw_input.assert_called_once_with()
+            _input.assert_called_once_with()

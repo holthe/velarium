@@ -2,8 +2,8 @@ import os
 import subprocess
 import zipfile
 
-import ping
 import velarium.network
+from . import models, ping
 
 
 class BaseProvider(object):
@@ -17,7 +17,8 @@ class BaseProvider(object):
         self.pem_file = self._find_file_with_ext('.pem')
         self._additional_connection_arguments = []
 
-    def get_name(self):
+    @staticmethod
+    def get_name():
         raise NotImplementedError()
 
     def get_user(self):
@@ -80,7 +81,7 @@ class BaseProvider(object):
         for argument in self._additional_connection_arguments:
             cmd.extend(argument)
 
-        print cmd
+        print(cmd)
         process = None
         try:
             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

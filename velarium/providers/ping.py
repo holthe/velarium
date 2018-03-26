@@ -1,4 +1,7 @@
-import Queue
+try:
+    import Queue as queue
+except ImportError:
+    import queue
 import collections
 import re
 import subprocess
@@ -10,9 +13,9 @@ PingResult = collections.namedtuple('PingResult', 'host ping_rtt')
 
 class PingSweeper(object):
     """Class used for performing ping sweeping."""
-    ping_result_queue = Queue.Queue()
+    ping_result_queue = queue.Queue()
     thread_count = 15
-    host_queue = Queue.Queue()
+    host_queue = queue.Queue()
 
     def __init__(self, rtt_threshold_ms=100):
         self.rtt_threshold_ms = rtt_threshold_ms
@@ -36,18 +39,18 @@ class PingSweeper(object):
         while True:
             try:
                 ping_result = self.ping_result_queue.get_nowait()
-            except Queue.Empty:
+            except queue.Empty:
                 break
 
             ping_results.append(ping_result)
 
         return ping_results
 
-    def _threaded_ping(self, _, queue):
+    def _threaded_ping(self, _, q):
         """Ping hosts in queue using system ping command."""
         while True:
             # Get a host item form queue and ping it
-            host = queue.get()
+            host = q.get()
             args = ['/bin/ping', '-c', '3', '-W', '1', str(host)]
             p_ping = subprocess.Popen(args, stdout=subprocess.PIPE)
 
@@ -67,4 +70,4 @@ class PingSweeper(object):
                 self.ping_result_queue.put(PingResult(host=host, ping_rtt=ping_rtt))
 
             # Update queue: this host is processed
-            queue.task_done()
+            q.task_done()

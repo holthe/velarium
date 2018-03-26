@@ -1,8 +1,11 @@
-from ConfigParser import SafeConfigParser
+try:
+    from ConfigParser import SafeConfigParser
+except ImportError:
+    from configparser import ConfigParser as SafeConfigParser
 
 import pkg_resources
 
-import simpleprovider
+from . import simpleprovider
 
 
 class Configuration(object):
