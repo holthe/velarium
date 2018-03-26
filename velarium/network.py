@@ -1,14 +1,13 @@
-import StringIO
 import collections
 import json
 import random
 from contextlib import contextmanager
+from io import BytesIO
 
 import requests
 import tqdm
 
-import color
-import process
+from . import color, process
 
 
 def ufw_set():
@@ -36,7 +35,7 @@ def download(url, chunk=True, verbose=True):
 
     response = requests.get(url, stream=True)
 
-    out_handle = StringIO.StringIO()
+    out_handle = BytesIO()
     content_length = response.headers.get('Content-Length')
     if (content_length is None) or (not chunk):
         out_handle.write(response.content)
@@ -62,7 +61,7 @@ def download(url, chunk=True, verbose=True):
 def get_dns_info():
     """Get DNS info retrieved from https://{hash}.ipleak.net/json/ where {hash} is a 40 char random hash."""
     result = ''
-    for _ in xrange(3):
+    for _ in range(3):
         # Generate a random 40 char hash used for making ipleak do a 'mydns' query type
         dns_test_url = 'https://%032x.ipleak.net/json/\n' % random.getrandbits(160)
         print('\nRetrieving DNS info\n{0}'.format(dns_test_url))

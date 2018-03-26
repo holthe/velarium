@@ -1,10 +1,4 @@
-import ntpath
-import os
-import shutil
-
-import interpreter
-import network
-import utils
+from . import interpreter, network, process
 
 
 def ufw_reset():
@@ -17,8 +11,5 @@ def main():
     # We need to run as root and we only allow a single instance
     process.relaunch_with_sudo(interactive=True)
     process.ensure_single_instance('velarium')
-
-    #shutil.copy(utils.configuration_file,
-    #            os.path.join(app_dir, ntpath.basename(utils.configuration_file)))
 
     interpreter.run()

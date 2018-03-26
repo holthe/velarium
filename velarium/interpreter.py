@@ -4,17 +4,14 @@ import os
 import readline
 import subprocess
 import time
+from builtins import input
 
 import cmd2
 import pick
 from dateutil import parser
 
-import color
-import network
-import process
-import providers.ping
-import providers.providers
-import utils
+from . import color, network, process, utils
+from .providers import providers
 
 ASCII_LOGO = ''
 VERSION_EXPIRATION_DAYS = 7
@@ -94,13 +91,13 @@ class Interpreter(cmd2.Cmd):
     def do_select(self, provider_name=''):
         """Select VPN provider by name."""
         if not provider_name:
-            provider_name, _ = pick.pick(providers.providers.available_provider_names,
+            provider_name, _ = pick.pick(providers.available_provider_names,
                                          '{0}\nSelect VPN provider.'.format(ASCII_LOGO),
                                          '=>')
 
         self._select_provider(provider_name)
 
-    def _select_provider(self, provider_name, add=False):
+    def _select_provider(self, provider_name):
         self._set_provider(provider_name)
 
         process.drop_privileges()
@@ -113,7 +110,7 @@ class Interpreter(cmd2.Cmd):
         self.do_update()
 
     def complete_select(self, text, line, _start_idx, _end_idx):
-        return self._complete(text, line, providers.providers.available_provider_names)
+        return self._complete(text, line, providers.available_provider_names)
 
     def do_update(self, _=0):
         """Update selected provider."""
@@ -150,11 +147,11 @@ class Interpreter(cmd2.Cmd):
 
     def do_add(self, provider_name):
         while not provider_name:
-            provider_name = raw_input('Please enter provider name: ')
+            provider_name = input('Please enter provider name: ')
 
         configs_url = None
         while not configs_url:
-            configs_url = raw_input('Please the URL to a zip file with configuration files: ')
+            configs_url = input('Please the URL to a zip file with configuration files: ')
 
         process.drop_privileges()
 
@@ -164,7 +161,6 @@ class Interpreter(cmd2.Cmd):
         self.do_select(provider_name)
 
         process.relaunch_with_sudo()
-
 
     # noinspection PyMethodMayBeStatic
     def do_firewall(self, toggle):
@@ -187,7 +183,7 @@ class Interpreter(cmd2.Cmd):
         readline.write_history_file(self.history_file)
 
     def _set_provider(self, provider_name):
-        self.provider = providers.providers.get_provider(provider_name, self.app_dir)
+        self.provider = providers.get_provider(provider_name, self.app_dir)
         if not self.provider:
             # Default to something. Note the use of do_select,
             # which in turns calls _set_provider. This is done

@@ -1,6 +1,7 @@
 appdirs
 pick
 cmd2
+future
 requests[security]
 setuptools
 tqdm

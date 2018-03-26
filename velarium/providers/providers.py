@@ -1,6 +1,4 @@
-import ipvanish
-
-import config
+from . import config, ipvanish
 
 available_providers = [
     ipvanish.IPVanish,

@@ -4,7 +4,7 @@ import pwd
 import subprocess
 import sys
 
-import utils
+from . import utils
 
 PID_FILE = None
 

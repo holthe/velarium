@@ -1,9 +1,8 @@
 import json
 import os
 
-import baseprovider
-import models
 import velarium.network
+from . import baseprovider, models
 
 
 class IPVanish(baseprovider.BaseProvider):
@@ -20,7 +19,7 @@ class IPVanish(baseprovider.BaseProvider):
 
     def _get_servers(self):
         """Download and filter IPVanish servers by performing a ping sweep."""
-        for _ in xrange(3):
+        for _ in range(3):
             try:
                 with velarium.network.download('https://www.ipvanish.com/api/servers.geojson') as servers_mem_file:
                     data = servers_mem_file.getvalue()
