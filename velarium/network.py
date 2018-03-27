@@ -69,7 +69,7 @@ def get_dns_info():
         with download(dns_test_url, chunk=False, verbose=False) as ip_info_mem_file:
             data = ip_info_mem_file.getvalue()
 
-        ip_dict = json.loads(data, object_pairs_hook=collections.OrderedDict)
+        ip_dict = json.loads(data.decode('utf-8'), object_pairs_hook=collections.OrderedDict)
 
         result = ''
         error = False
