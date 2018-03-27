@@ -4,6 +4,7 @@ try:
 except ImportError:
     from configparser import ConfigParser as SafeConfigParser
 
+import os
 import pkg_resources
 
 from . import simpleprovider
@@ -16,7 +17,7 @@ class Configuration(object):
     def __init__(self, *file_names):
         parser = SafeConfigParser()
         parser.optionxform = str  # Make option names case sensitive
-        found = parser.read(file_names)
+        found = parser.read([f for f in file_names if os.path.isfile(f)])
         if not found:
             raise ValueError('No config file found!')
 
@@ -24,4 +25,7 @@ class Configuration(object):
             self.providers.append(simpleprovider.SimpleProvider(velarium.utils.get_app_dir(), item[0], item[1]))
 
 
-config = Configuration(pkg_resources.resource_filename('velarium', 'providers.conf'))
+# Look for both bundled provider configuration file and a user provided one
+config_filename = 'providers.conf'
+config = Configuration(pkg_resources.resource_filename('velarium', config_filename),
+                       os.path.join(velarium.utils.get_app_dir(), config_filename))
