@@ -3,7 +3,7 @@ define cleanup
 endef
 
 init:
-	pip install --user -r requirements.txt
+	pip install -r requirements.txt
 
 test: init
 	nosetests --verbosity=2 --with-coverage --cover-package=velarium tests
