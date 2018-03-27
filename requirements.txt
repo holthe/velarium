@@ -3,7 +3,7 @@ pick
 cmd2
 future
 requests[security]
-setuptools
+setuptools>=18.5
 tqdm
 python_dateutil
 

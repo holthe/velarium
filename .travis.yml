@@ -1,12 +1,13 @@
-nguage: python
+language: python
 python:
-  - "2.7"
+  - "2.7_with_system_site_packages"
+  - "3.3"
+  - "3.4"
   - "3.5"
+  - "3.6"
 # command to install dependencies
 install:
   - make init
 # command to run tests
 script:
   - make test
-virtualenv:
-    system_site_packages: true
