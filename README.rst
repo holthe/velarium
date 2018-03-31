@@ -35,6 +35,7 @@ Supported providers
 ^^^^^^^^^^^^^^^^^^^
 
 * IPVanish
+* Private Internet Access
 * HideMyAss
 * PureVPN
 * NordVPN
