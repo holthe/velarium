@@ -256,7 +256,7 @@ def run():
             if parser.parse(last_updated) < (
                     datetime.datetime.now() - datetime.timedelta(days=VERSION_EXPIRATION_DAYS)):
                 if utils.query_yes_no('Last updated more than a week ago. Do you wish to update now?'):
-                    interpreter.do_update()
+                    interpreter.do_select()
 
             print('{0}\nLast updated: {1}\n{0}'.format('-{0}-'.format(
                 '-'*len(ASCII_LOGO.splitlines()[-1])),
