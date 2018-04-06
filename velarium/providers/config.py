@@ -1,8 +1,8 @@
 import velarium.utils
 try:
-    from ConfigParser import SafeConfigParser
+    from ConfigParser import SafeConfigParser, NoSectionError
 except ImportError:
-    from configparser import ConfigParser as SafeConfigParser
+    from configparser import ConfigParser as SafeConfigParser, NoSectionError
 
 import os
 import pkg_resources
@@ -21,8 +21,11 @@ class Configuration(object):
         if not found:
             raise ValueError('No config file found!')
 
-        for item in parser.items('providers'):
-            self.providers.append(simpleprovider.SimpleProvider(velarium.utils.get_app_dir(), item[0], item[1]))
+        try:
+            for item in parser.items('providers'):
+                self.providers.append(simpleprovider.SimpleProvider(velarium.utils.get_app_dir(), item[0], item[1]))
+        except NoSectionError:
+            pass
 
 
 # Look for both bundled provider configuration file and a user provided one
