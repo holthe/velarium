@@ -62,7 +62,8 @@ class BaseProvider(object):
         script_file = '/etc/openvpn/update-resolv-conf'
         security_level = 2
         verbose_level = 3
-        cmd = ['openvpn',
+        cmd = ['sudo',
+               'openvpn',
                '--config', os.path.join(self.config_dir, config_file),
                '--script-security', str(security_level),
                '--up', script_file,

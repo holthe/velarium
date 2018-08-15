@@ -6,7 +6,7 @@ from contextlib import contextmanager
 import appdirs
 import pkg_resources
 
-configuration_file = pkg_resources.resource_filename('velarium', 'providers.conf')
+configuration_file = pkg_resources.resource_filename('velarium', 'velarium.conf')
 
 
 def get_app_dir():

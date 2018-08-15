@@ -20,7 +20,7 @@ setup(
     package_data={
         'velarium': [
             'ascii_logo',
-            'providers.conf'
+            'velarium.conf'
         ],
     },
     entry_points={

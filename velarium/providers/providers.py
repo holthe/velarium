@@ -1,8 +1,6 @@
 from . import config, ipvanish
 
-available_providers = [
-    ipvanish.IPVanish,
-]
+available_providers = [ipvanish.IPVanish]
 
 available_providers.extend([p for p in config.config.providers])
 

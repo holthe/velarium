@@ -4,8 +4,6 @@ import pwd
 import subprocess
 import sys
 
-from . import utils
-
 PID_FILE = None
 
 
@@ -29,19 +27,6 @@ def try_call_multiple(*commands):
             return False
 
     return True
-
-
-def relaunch_with_sudo(force=False, interactive=False):
-    """Re-launch current process as root with 'sudo'."""
-    if force or os.geteuid() != 0:
-        if interactive and not utils.query_yes_no('velarium needs root. Do you want to re-launch with sudo?'):
-            return
-
-        # os.execvp() replaces the running process, rather than launching a child
-        # process, so there's no need to exit afterwards. The extra 'sudo' in the
-        # second parameter is required because Python doesn't automatically set $0
-        # in the new process.
-        os.execvp('sudo', ['sudo'] + sys.argv)
 
 
 def ensure_single_instance(process_name):

@@ -8,8 +8,7 @@ def ufw_reset():
 
 def main():
     """Entry point for the application script."""
-    # We need to run as root and we only allow a single instance
-    process.relaunch_with_sudo(interactive=True)
+    # We only allow a single instance
     process.ensure_single_instance('velarium')
 
     interpreter.run()
