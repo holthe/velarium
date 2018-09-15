@@ -3,6 +3,7 @@ import os
 import pwd
 import subprocess
 import sys
+from . import utils
 
 PID_FILE = None
 
@@ -34,7 +35,7 @@ def ensure_single_instance(process_name):
     # PID_FILE must be global or the file will be closed after the function exits.
     global PID_FILE
 
-    pid_file_name = '/var/run/{0}.pid'.format(process_name)
+    pid_file_name = os.path.join(utils.get_app_dir(), '{0}.pid'.format(process_name))
     PID_FILE = open(pid_file_name, 'w')
     try:
         fcntl.lockf(PID_FILE, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -44,22 +45,9 @@ def ensure_single_instance(process_name):
         sys.exit(0)
 
 
-def drop_privileges():
-    """Drop privileges if root."""
-    if os.getuid() != 0:
-        # We're not root...
-        return
-
-    # Get the uid/gid from the name
-    user_name = os.getenv('SUDO_USER')
-    pwnam = pwd.getpwnam(user_name)
-
-    # Remove group privileges
-    os.setgroups([])
-
-    # Try setting the new uid/gid
-    os.setgid(pwnam.pw_gid)
-    os.setuid(pwnam.pw_uid)
+def relaunch():
+    # TODO PHH 15-sep-2018: Implement this...
+    pass
 
 
 def kill(process_name):

@@ -2,6 +2,7 @@ import subprocess
 import sys
 from builtins import input
 from contextlib import contextmanager
+import os
 
 import appdirs
 import pkg_resources
@@ -10,7 +11,11 @@ configuration_file = pkg_resources.resource_filename('velarium', 'velarium.conf'
 
 
 def get_app_dir():
-    return appdirs.user_config_dir('velarium')
+    app_dir = appdirs.user_config_dir('velarium')
+    if not os.path.isdir(app_dir):
+        os.makedirs(app_dir)
+
+    return app_dir
 
 
 @contextmanager

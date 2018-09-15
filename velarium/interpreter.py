@@ -100,7 +100,6 @@ class Interpreter(cmd2.Cmd):
     def _select_provider(self, provider_name):
         self._set_provider(provider_name)
 
-        process.drop_privileges()
         if not os.path.isdir(self.provider.config_dir):
             os.makedirs(self.provider.config_dir)
 
@@ -116,15 +115,12 @@ class Interpreter(cmd2.Cmd):
         """Update selected provider."""
         self._save_history()
 
-        # Ensure that config dir and files are not written with root as owner
-        process.drop_privileges()
         self.provider.update()
 
         with open(self.last_updated_file, 'w') as new_last_updated:
             new_last_updated.write(time.strftime("%Y-%m-%d %H:%M"))
 
-        # Re-launch ourselves as root after privileges have been dropped
-        process.relaunch_with_sudo()
+        process.relaunch()
 
     def do_connect(self, config_file):
         """Connect with the specified config_file to the selected provider."""
@@ -152,8 +148,6 @@ class Interpreter(cmd2.Cmd):
         configs_url = None
         while not configs_url:
             configs_url = input('Please the URL to a zip file with configuration files: ')
-
-        process.drop_privileges()
 
         with open(os.path.join(self.app_dir, 'providers.conf'), 'a') as providers_file:
             providers_file.write('{0}  :  {1}'.format(provider_name, configs_url))

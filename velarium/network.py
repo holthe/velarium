@@ -33,7 +33,11 @@ def download(url, chunk=True, verbose=True):
     if verbose:
         print('Retrieving {0}'.format(url))
 
-    response = requests.get(url, stream=True)
+    try:
+        response = requests.get(url, stream=True)
+    except Exception as e:
+        print('No connection...')
+        return
 
     out_handle = BytesIO()
     content_length = response.headers.get('Content-Length')

@@ -115,9 +115,12 @@ class BaseProvider(object):
 
     def update(self):
         """Download and extract config files from the given url. Override if needed."""
-        with velarium.network.download(self.configs_url) as configs_zip_mem_file:
-            with zipfile.ZipFile(configs_zip_mem_file) as zip_file:
-                zip_file.extractall(self.config_dir)
+        try:
+            with velarium.network.download(self.configs_url) as configs_zip_mem_file:
+                with zipfile.ZipFile(configs_zip_mem_file) as zip_file:
+                    zip_file.extractall(self.config_dir)
+        except Exception as e:
+            print('Could not update {0}'.format(self.get_name()))
 
     def _find_file_with_ext(self, ext):
         """Find first file with the given extension."""
