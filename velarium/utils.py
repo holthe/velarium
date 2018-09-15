@@ -1,8 +1,8 @@
+import os
 import subprocess
 import sys
 from builtins import input
 from contextlib import contextmanager
-import os
 
 import appdirs
 import pkg_resources

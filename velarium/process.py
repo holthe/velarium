@@ -1,8 +1,8 @@
 import fcntl
 import os
-import pwd
 import subprocess
 import sys
+
 from . import utils
 
 PID_FILE = None

@@ -141,7 +141,13 @@ class Interpreter(cmd2.Cmd):
         """Return list of suggestions for TAB completion for connect method."""
         return self._complete(text, line, self.config_files.keys()[:])
 
+    def do_clear(self, _=0):
+        """Clear screen only showing the ASCII logo."""
+        subprocess.call(['/usr/bin/clear'])
+        print('\n {0}'.format(ASCII_LOGO.replace('\n', '\n ')))
+
     def do_add(self, provider_name):
+        """Add a VPN provider."""
         while not provider_name:
             provider_name = input('Please enter provider name: ')
 
