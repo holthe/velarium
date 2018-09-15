@@ -160,7 +160,7 @@ class Interpreter(cmd2.Cmd):
 
         self.do_select(provider_name)
 
-        process.relaunch_with_sudo()
+        process.relaunch()
 
     # noinspection PyMethodMayBeStatic
     def do_firewall(self, toggle):

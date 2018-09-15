@@ -46,8 +46,11 @@ def ensure_single_instance(process_name):
 
 
 def relaunch():
-    # TODO PHH 15-sep-2018: Implement this...
-    pass
+    # os.execvp() replaces the running process, rather than launching a child
+    # process, so there's no need to exit afterwards. The extra 'argv[0]' in the
+    # second parameter is required because Python doesn't automatically set $0
+    # in the new process.
+    os.execvp(sys.argv[0], sys.argv)
 
 
 def kill(process_name):
