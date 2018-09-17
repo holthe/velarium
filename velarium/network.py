@@ -35,7 +35,7 @@ def download(url, chunk=True, verbose=True):
 
     try:
         response = requests.get(url, stream=True)
-    except Exception as e:
+    except Exception:
         print('No connection...')
         return
 
@@ -86,7 +86,7 @@ def get_dns_info():
 
             if not error:
                 break
-        except:
+        except Exception:
             return ''
 
     return result

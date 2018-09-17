@@ -141,6 +141,7 @@ class Interpreter(cmd2.Cmd):
         """Return list of suggestions for TAB completion for connect method."""
         return self._complete(text, line, self.config_files.keys()[:])
 
+    # noinspection PyMethodMayBeStatic
     def do_clear(self, _=0):
         """Clear screen only showing the ASCII logo."""
         subprocess.call(['/usr/bin/clear'])

@@ -119,7 +119,7 @@ class BaseProvider(object):
             with velarium.network.download(self.configs_url) as configs_zip_mem_file:
                 with zipfile.ZipFile(configs_zip_mem_file) as zip_file:
                     zip_file.extractall(self.config_dir)
-        except Exception as e:
+        except Exception:
             print('Could not update {0}'.format(self.get_name()))
 
     def _find_file_with_ext(self, ext):
