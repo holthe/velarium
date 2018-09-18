@@ -17,7 +17,7 @@ class PingSweeper(object):
     thread_count = 15
     host_queue = queue.Queue()
 
-    def __init__(self, rtt_threshold_ms=100):
+    def __init__(self, rtt_threshold_ms=1000):
         self.rtt_threshold_ms = rtt_threshold_ms
 
     def sweep(self, hosts):

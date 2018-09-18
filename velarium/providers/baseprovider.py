@@ -45,12 +45,9 @@ class BaseProvider(object):
         ping_results = ping.PingSweeper(ping_rtt_threshold_ms).sweep(
             [server.hostname for server in servers_for_ping[:min(len(servers_for_ping), max_hosts_for_ping)]])
 
-        best_results = sorted(
-            [result for result in ping_results if result.ping_rtt < ping_rtt_threshold_ms],
-            key=lambda x: x[1])
-
+        sorted_results = sorted([result for result in ping_results], key=lambda x: x[1])
         best_servers = [server for server in servers_for_ping if
-                        server.hostname in [result.host for result in best_results]]
+                        server.hostname in [result.host for result in sorted_results]]
 
         for server in best_servers:
             server.set_rtt(
