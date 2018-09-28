@@ -141,8 +141,8 @@ class Interpreter(cmd2.Cmd):
         """Return list of suggestions for TAB completion for connect method."""
         return self._complete(text, line, self.config_files.keys()[:])
 
-    # noinspection PyMethodMayBeStatic
-    def do_clear(self, _=0):
+    @classmethod
+    def do_clear(cls, _=0):
         """Clear screen only showing the ASCII logo."""
         subprocess.call(['/usr/bin/clear'])
         print('\n {0}'.format(ASCII_LOGO.replace('\n', '\n ')))
@@ -163,8 +163,8 @@ class Interpreter(cmd2.Cmd):
 
         process.relaunch()
 
-    # noinspection PyMethodMayBeStatic
-    def do_firewall(self, toggle):
+    @classmethod
+    def do_firewall(cls, toggle):
         """Set UFW rules to only allow incoming and outgoing traffic on interface tun0."""
         if not toggle:
             print('In order to toggle firewall, please call with "enable" or "disable"')
