@@ -45,4 +45,4 @@ Supported providers
 Adding providers
 ^^^^^^^^^^^^^^^^
 
-Adding a *simple* VPN provider can be done by dropping a ``providers.conf`` file in ``~/.config/velarium/``. The format is the same as in `velarium/providers.conf <velarium/providers.conf>`_, i.e. the configuration file needs a ``[providers]`` header and each provider is configured on a single line with two ``:``-separated columns, ``{NAME} : {CONFIGS_URL}``.
+Adding a *simple* VPN provider can be done by dropping a ``providers.conf`` file in ``~/.config/velarium/``. The format is the same as in `velarium/providers/providers.conf <velarium/providers/providers.conf>`_, i.e. the configuration file needs a ``[providers]`` header and each provider is configured on a single line with two ``:``-separated columns, ``{NAME} : {CONFIGS_URL}``.
